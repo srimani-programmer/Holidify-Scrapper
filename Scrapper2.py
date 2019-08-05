@@ -3,7 +3,7 @@ import csv
 import re
 from bs4 import BeautifulSoup
 
-res = requests.get('https://www.holidify.com/places/shimla/mall-road-shimla-sightseeing-3502.html')
+res = requests.get('https://www.holidify.com/places/shimla/mall-road-shimla-sightseeing-3600.html')
 
 soup = BeautifulSoup(res.text, 'lxml')
 
@@ -14,7 +14,7 @@ def getPlaceName():
     for i in placeName:
         print(i.h1.text)
 
-#getPlaceName()
+getPlaceName()
 
 about = soup.find_all('div',class_="col-md-8 col-xs-12 paddingSet")
 
@@ -25,7 +25,7 @@ def getAboutData():
         for i in data:
             print(i.p.text)
 
-#getAboutData()
+getAboutData()
 
 def getAboutMoreData():
     for i in about:
@@ -39,25 +39,32 @@ def timings():
     for i in timing:
         print(str(i.text).strip())
 
-# timings()
+timings()
 
 timeRequired = soup.find_all('div', class_="col-md-12 col-xs-12 nopadding atfMarginBottomMobile")
 
 def getTimeRequired():
     for i in timeRequired:
         paragraphData = i.find_all('p', class_="objText")
-        data = str(paragraphData[1])
-        data = re.findall("[0-9].* hours", data)
-        print(data[0].strip())
+        try:
+            data = str(paragraphData[1])
+            data = re.findall("[0-9].* hours", data)
+            print(data[0].strip())
+        except Exception as e:
+            pass
 
-#getTimeRequired()
+getTimeRequired()
 
-    
+'''
+timeReq = soup.find_all('p', class_="objText")
 
+for i in timeReq:
+    data = i.text
+    print(data)
 
+'''
 
+cityData = soup.find_all('a', class_="smallerText")
 
-
-
-
-
+for i in cityData:
+    print(i.text)

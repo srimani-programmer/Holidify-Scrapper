@@ -31,3 +31,33 @@ def getAboutMoreData():
     for i in about:
         data = i.find_all('p',attrs={'class':'textColor infoSpace'})
         print(str(data[1])[32:len(data)-6])
+
+#getAboutMoreData()
+
+def timings():
+    timing = soup.find_all('span', class_="objText")
+    for i in timing:
+        print(str(i.text).strip())
+
+# timings()
+
+timeRequired = soup.find_all('div', class_="col-md-12 col-xs-12 nopadding atfMarginBottomMobile")
+
+def getTimeRequired():
+    for i in timeRequired:
+        paragraphData = i.find_all('p', class_="objText")
+        data = str(paragraphData[1])
+        data = re.findall("[0-9].* hours", data)
+        print(data[0].strip())
+
+#getTimeRequired()
+
+    
+
+
+
+
+
+
+
+
